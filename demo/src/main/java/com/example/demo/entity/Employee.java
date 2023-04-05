@@ -62,6 +62,17 @@ public class Employee implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
     private Set<Project> projects = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public Long getId() {
         return id;
     }
@@ -110,6 +121,7 @@ public class Employee implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", position='" + position + '\'' +
                 ", department=" + department +
+                ", address=" + address +
                 '}';
     }
 }

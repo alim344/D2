@@ -14,14 +14,17 @@ public class Company implements Serializable {
     @Column
     private String name;
 
-    @Column
-    private String address;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     /*
-        pogledati komentare iznad atributa employees u klasi Department
-     */
+            pogledati komentare iznad atributa employees u klasi Department
+         */
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Department> departments = new HashSet<>();
+
+
 
 
     public Long getId() {
@@ -40,13 +43,6 @@ public class Company implements Serializable {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public Set<Department> getDepartments() {
         return departments;
